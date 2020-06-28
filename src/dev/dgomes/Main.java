@@ -4,6 +4,9 @@ import dev.dgomes.decorator.BasicIceCream;
 import dev.dgomes.decorator.IceCream;
 import dev.dgomes.decorator.MintIceCream;
 import dev.dgomes.decorator.VanillaIceCream;
+import dev.dgomes.factory.hamburgerStore.HamburgerStore;
+import dev.dgomes.factory.JamHamburgerStore;
+import dev.dgomes.factory.MozHamburgerStore;
 import dev.dgomes.factory.SimpleHamburgerStore;
 import dev.dgomes.factory.hamburgerStore.Hamburger;
 import dev.dgomes.factory.hamburgerStore.HamburgerType;
@@ -11,12 +14,16 @@ import dev.dgomes.observer.EmailTopic;
 import dev.dgomes.observer.EmailTopicSubscriber;
 import dev.dgomes.observer.Observer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
         //runObserver();
         //runDecorator();
-        runSimpleFactory();
+        //runSimpleFactory();
+        runFactoryPatern();
     }
 
     private static void runObserver(){
@@ -55,6 +62,21 @@ public class Main {
             burger = store.orderHamburger(tipo);
             burger.deliver();
         }
+
+    }
+    private static void runFactoryPatern(){
+        System.out.println("runFactoryPatern");
+        List<HamburgerStore> stores = new ArrayList<>();
+        stores.add(new MozHamburgerStore());
+        stores.add(new JamHamburgerStore());
+        Hamburger burger;
+        for (HamburgerStore store : stores){
+            for (HamburgerType tipo : HamburgerType.values()) {
+                burger = store.orderHamburger(tipo);
+                burger.deliver();
+            }
+        }
+
 
     }
 }
