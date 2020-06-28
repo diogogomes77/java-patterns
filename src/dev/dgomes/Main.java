@@ -1,5 +1,9 @@
 package dev.dgomes;
 
+import dev.dgomes.decorator.BasicIceCream;
+import dev.dgomes.decorator.IceCream;
+import dev.dgomes.decorator.MintIceCream;
+import dev.dgomes.decorator.VanillaIceCream;
 import dev.dgomes.observer.EmailTopic;
 import dev.dgomes.observer.EmailTopicSubscriber;
 import dev.dgomes.observer.Observer;
@@ -7,7 +11,8 @@ import dev.dgomes.observer.Observer;
 public class Main {
 
     public static void main(String[] args) {
-        runObserver();
+        //runObserver();
+        runDecorator();
     }
 
     private static void runObserver(){
@@ -26,5 +31,17 @@ public class Main {
         topic1.postMessage("Hello Subscribers!");
         topic1.unregister(obs1);
         topic1.postMessage("Hello Subscribers!");
+    }
+
+    private static void runDecorator(){
+
+        IceCream basicIceCream = new BasicIceCream();
+        System.out.println("Basic Ice-cream cost $" + basicIceCream.cost());
+
+        IceCream vanilla = new VanillaIceCream(basicIceCream);
+        System.out.println("Vanilla Ice-cream cost $" + vanilla.cost());
+
+        IceCream mint = new MintIceCream(vanilla);
+        System.out.println("Mint Ice-cream cost $" + mint.cost());
     }
 }
