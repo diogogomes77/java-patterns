@@ -4,6 +4,9 @@ import dev.dgomes.decorator.BasicIceCream;
 import dev.dgomes.decorator.IceCream;
 import dev.dgomes.decorator.MintIceCream;
 import dev.dgomes.decorator.VanillaIceCream;
+import dev.dgomes.factory.SimpleHamburgerStore;
+import dev.dgomes.factory.hamburgerStore.Hamburger;
+import dev.dgomes.factory.hamburgerStore.HamburgerType;
 import dev.dgomes.observer.EmailTopic;
 import dev.dgomes.observer.EmailTopicSubscriber;
 import dev.dgomes.observer.Observer;
@@ -12,7 +15,8 @@ public class Main {
 
     public static void main(String[] args) {
         //runObserver();
-        runDecorator();
+        //runDecorator();
+        runSimpleFactory();
     }
 
     private static void runObserver(){
@@ -32,9 +36,8 @@ public class Main {
         topic1.unregister(obs1);
         topic1.postMessage("Hello Subscribers!");
     }
-
     private static void runDecorator(){
-
+        System.out.println("runDecorator");
         IceCream basicIceCream = new BasicIceCream();
         System.out.println("Basic Ice-cream cost $" + basicIceCream.cost());
 
@@ -43,5 +46,15 @@ public class Main {
 
         IceCream mint = new MintIceCream(vanilla);
         System.out.println("Mint Ice-cream cost $" + mint.cost());
+    }
+    private static void runSimpleFactory(){
+        System.out.println("runSimpleFactory");
+        SimpleHamburgerStore store = new SimpleHamburgerStore();
+        Hamburger burger;
+        for (HamburgerType tipo : HamburgerType.values()) {
+            burger = store.orderHamburger(tipo);
+            burger.deliver();
+        }
+
     }
 }
